@@ -12,35 +12,33 @@ const UserFeed = () => {
   const postRefs = useRef({});
   const [shouldScroll, setShouldScroll] = useState(false);
 
+  // useEffect(() => {
+  //   if (!isLoading && postId && postRefs.current[postId]) {
+  //     postRefs.current[postId].scrollIntoView({ behavior: "smooth" });
+  //     setShouldScroll(false); // Reset to false after scrolling
+  //   }
+  // }, [posts, postId, isLoading]);
+
   useEffect(() => {
     if (!isLoading && postId && postRefs.current[postId]) {
-      postRefs.current[postId].scrollIntoView({ behavior: "smooth" });
+      // Using setTimeout to ensure DOM is fully updated
+      setTimeout(() => {
+        postRefs.current[postId].scrollIntoView();
+      }, 500); // Adjust delay as necessary
       setShouldScroll(false); // Reset to false after scrolling
     }
-  }, [posts, postId, isLoading]);
-
-  useEffect(() => {
-    if (!isLoading) {
-      // Once posts are loaded, check if postId exists
-      if (postId && postRefs.current[postId]) {
-        postRefs.current[postId].scrollIntoView({ behavior: "smooth" });
-        setShouldScroll(false); // Reset to false after scrolling
-      }
-    } else {
-      setShouldScroll(true); // Set to true to attempt scrolling once posts are loaded
-    }
-  }, [isLoading]);
+  }, [isLoading, postId, posts]);
 
   return (
-    <Container maxW={"container.sm"} py={10} px={2}>
+    <Container mx={0} px={0} py={6}>
       {isLoading &&
         [0, 1, 2].map((_, idx) => (
-          <VStack key={idx} gap={4} alignItems={"flex-start"} mb={10}>
-            <Flex gap="2">
+          <VStack key={idx} gap={0} alignItems={"flex-start"} mb={{base: "13vh", md: "60px"}}>
+            <Flex gap="0">
               <SkeletonCircle size="10" />
-              <VStack gap={2} alignItems={"flex-start"}>
-                <Skeleton height="10px" w={"200px"} />
-                <Skeleton height="10px" w={"200px"} />
+              <VStack gap={0} alignItems={"flex-start"}>
+                <Skeleton height="10px" w={{base: "100vw", md: "200px"}} />
+                <Skeleton height="10px" w={{base: "100vw", md: "200px"}} />
               </VStack>
             </Flex>
             <Skeleton w={"full"}>
@@ -59,14 +57,11 @@ const UserFeed = () => {
         ))
       }
 
-      {!isLoading && posts.length === 0 && (
-        <Text fontSize={"md"} color={"red.400"}>
-          Follow some people to see their posts in your feed.
-        </Text>
-      )}
+      
 
       {/* Conditional rendering for scroll attempt when posts are loaded */}
       {shouldScroll && <div style={{ visibility: "hidden", height: 0 }} ref={(el) => el && el.scrollIntoView({ behavior: "smooth" })}></div>}
+      
     </Container>
   );
 };

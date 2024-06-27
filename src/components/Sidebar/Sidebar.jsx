@@ -18,7 +18,7 @@ const Sidebar = () => {
 	return (
 	
 	<Box
-		height={{base: "10vw", md: "60px"}}
+		height={{base: "10vh", md: "60px"}}
 		width={{base: "100vw", md: "70vw"}}
 		//alignItems={"center"}
 		//justifyContent={"center"}
@@ -27,19 +27,21 @@ const Sidebar = () => {
 		py={4}
 		position={"fixed"}
 		bottom={0}
+    
+    mx={0}
 
 		left={{ base: 0, md: "50%" }} // Center horizontally on medium and larger screens
       	transform={{ base: "none", md: "translateX(-50%)" }} // Center horizontally on medium and larger screens
       
 
 		//left={0}
-		px={{ base: 2, md: 2 }}
+		px={{ base: 0, md: 2 }}
 		bg={"gray.900"}
 		zIndex={10}
 
     >
       <Flex direction={"row"} justifyContent={"center"} alignItems={"center"} w='full' height="100%" gap={4}>
-        <Link to={"/"} as={RouterLink} pl={2} display={{ base: "none", md: "flex" }} cursor='pointer' >
+        <Link ml={2} to={"/"} as={RouterLink} pl={2} display={{ base: "none", md: "flex" }} cursor='pointer' >
           <InstagramLogo />
         </Link>
         <Link
@@ -68,6 +70,7 @@ const Sidebar = () => {
           ml={1}
           openDelay={500}
           display={{ base: "block", md: "none" }}
+          mr={2}
         >
           <Flex
             onClick={handleLogout}

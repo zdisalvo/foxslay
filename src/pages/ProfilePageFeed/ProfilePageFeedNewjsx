@@ -6,7 +6,7 @@ import useGetUserProfileByUsername from "../../hooks/useGetUserProfileByUsername
 import { useParams } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 
-const ProfilePage = () => {
+const ProfilePageFeed = () => {
   const { username } = useParams();
   const { isLoading, userProfile } = useGetUserProfileByUsername(username);
 
@@ -50,7 +50,7 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default ProfilePageFeed;
 
 // skeleton for profile header
 const ProfileHeaderSkeleton = () => {
